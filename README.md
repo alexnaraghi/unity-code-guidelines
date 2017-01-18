@@ -162,8 +162,9 @@ switch(type)
 }
 ```
 
-- Unless there is an explicit/implicit precondition that a type passed into a variable is not null, you must 
-null check the variable before using it.
+- Unless there is an explicit pre-condition that a type passed into a variable is not null, you must 
+check the variable before using it.  Any input could be any value that the compiler allows it to 
+be, whether null, negative, out of range, etc.
 
 ```CSharp
 public void MyFunction(string value, MonoBehaviour otherClass)
@@ -172,6 +173,20 @@ public void MyFunction(string value, MonoBehaviour otherClass)
     {
         ...
     }
+}
+```
+
+- List any assumptions a function's caller must make as pre-conditions in the function summary.
+
+```CSharp
+/// <summary>
+/// Calculates the foobar of the parameters.
+/// Pre-condition: numProducts cannot be 0.
+/// </summary>
+public int GetFooBar(int totalBalance, int numProducts)
+{
+    // If numProducts is 0, we have a divide by 0 error.
+    return totalBalance / numProducts;
 }
 ```
 
@@ -193,22 +208,6 @@ compile time guarantee that it won't touch member variables and is easier to rea
 but comments have no compiler and can easily go out of date during refactoring.  DO comment when needed, but
 consider if variable names and algorithm structure can inform the reader better first.
 - Don't use magic numbers, put them into constants or named variables.
-- Make no assumptions about function parameters.  Any input could be any value that the compiler allows it to 
-be, whether null, negative, out of range, etc.  Unless pre-conditions are explicitly listed.
-- List any assumptions a function's caller must make as pre-conditions in the function summary.
-
-```CSharp
-/// <summary>
-/// Calculates the foobar of the parameters.
-/// Pre-condition: numProducts cannot be 0.
-/// </summary>
-public int GetFooBar(int totalBalance, int numProducts)
-{
-    // If numProducts is 0, we have a divide by 0 error.
-    return totalBalance / numProducts;
-}
-```
-    
 - Don't use MonoBehaviour constructors, and don't call constructors on classes that may spawn MonoBehaviours 
 on constructor defined member variables.
 
