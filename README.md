@@ -191,7 +191,7 @@ doSomething(callback: () =>
 {
     // Lambda function in here.
 });
-'''
+```
 
 - Don't modify input parameters of methods when calculating a result, use temporary variables instead.
 - Using var liberally is fine (```var keyword = "developer";```)
